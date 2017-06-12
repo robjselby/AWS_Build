@@ -1,3 +1,18 @@
+variable "platform" {
+  default     = "ubuntu"
+  description = "The OS Platform"
+}
+
+variable "user" {
+  default = {
+    ubuntu = "ubuntu"
+    rhel6   = "ec2-user"
+    centos6 = "centos"
+    centos7 = "centos"
+    rhel7   = "ec2-user"
+  }
+}
+
 variable "ami" {
   description = "AWS AMI Id, if you change, make sure it is compatible with instance type, not all AMIs allow all instance types "
 
