@@ -2,7 +2,7 @@ resource "aws_instance" "mybuild" {
   ami           = "${lookup(var.ami, "${var.region}-${var.platform}")}"
   instance_type = "t2.micro"
   key_name = "${var.key_name}"
-  security_groups = ["${aws_security_group.mybuild.name}"]
+  security_groups = ["${aws_security_group.mysg.name}"]
 
   connection {
         user = "${lookup(var.user, var.platform)}"
@@ -10,7 +10,7 @@ resource "aws_instance" "mybuild" {
   }
 }
 
-resource "aws_security_group" "mybuild" {
+resource "aws_security_group" "mysg" {
     name = "mybuild_${var.platform}"
     description = "Internal traffic + maintenance."
 
