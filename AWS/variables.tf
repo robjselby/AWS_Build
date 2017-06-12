@@ -1,3 +1,18 @@
+variable "platform" {
+  default     = "ubuntu"
+  description = "The OS Platform"
+}
+
+variable "user" {
+  default = {
+    ubuntu = "ubuntu"
+    rhel6   = "ec2-user"
+    centos6 = "centos"
+    centos7 = "centos"
+    rhel7   = "ec2-user"
+  }
+}
+
 variable "ami" {
   description = "AWS AMI Id, if you change, make sure it is compatible with instance type, not all AMIs allow all instance types "
 
@@ -25,4 +40,17 @@ variable "ami" {
     us-east-2-centos7     = "ami-6a2d760f"
     us-west-1-centos7     = "ami-af4333cf"
   }
+}
+
+variable "key_name" {
+  description = "SSH key name in your AWS account for AWS instances."
+}
+
+variable "key_path" {
+  description = "Path to the private key specified by key_name."
+}
+
+variable "region" {
+  default     = "us-east-1"
+  description = "The region of AWS, for AMI lookups."
 }
