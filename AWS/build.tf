@@ -6,6 +6,6 @@ resource "aws_instance" "mybuild" {
   connection {
         user = "${lookup(var.user, var.platform)}"
         private_key = "${file("${var.key_path}")}"
-}
+  }
 
 }
