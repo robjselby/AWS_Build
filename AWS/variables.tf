@@ -49,3 +49,11 @@ variable "key_name" {
 variable "key_path" {
   description = "Path to the private key specified by key_name."
 }
+<<<<<<< HEAD
+=======
+
+variable "region" {
+  default     = "us-east-1"
+  description = "The region of AWS, for AMI lookups."
+}
+>>>>>>> RobsBuild
