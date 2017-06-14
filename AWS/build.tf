@@ -37,6 +37,12 @@ resource "aws_route_table" "public_access" {
   }
 }
 
+resource "aws_route_table_association" "assoc" {
+  subnet_id      = "${aws_subnet.front_end.id}"
+  route_table_id = "${aws_route_table.public_access.id}"
+}
+
+
 resource "aws_subnet" "front_end" {
   vpc_id     = "${aws_vpc.TF_VPC.id}"
   cidr_block = "10.2.1.0/24"
