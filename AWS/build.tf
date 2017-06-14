@@ -4,7 +4,8 @@ resource "aws_instance" "mybuild" {
   key_name = "${var.key_name}"
   vpc_security_group_ids = ["${aws_security_group.mysg.id}"]
   subnet_id = "${aws_subnet.front_end.id}"
-
+  depends_on = ["aws_internet_gateway.gw"]
+  
   connection {
         user = "${lookup(var.user, var.platform)}"
         private_key = "${file("${var.key_path}")}"
