@@ -1,3 +1,5 @@
+// Creating an AWS Instance called mybuild
+
 resource "aws_instance" "mybuild" {
   ami           = "${lookup(var.ami, "${var.region}-${var.platform}")}"
   instance_type = "t2.micro"
@@ -12,6 +14,7 @@ resource "aws_instance" "mybuild" {
   }
 }
 
+// Creates a VPC called TF_VPC for the instance
 resource "aws_vpc" "TF_VPC" {
   cidr_block = "10.2.0.0/16"
 
@@ -20,6 +23,7 @@ resource "aws_vpc" "TF_VPC" {
   }
 }
 
+// Associates an internet gateway with the VPC
 resource "aws_internet_gateway" "gw" {
   vpc_id = "${aws_vpc.TF_VPC.id}"
 
@@ -28,6 +32,7 @@ resource "aws_internet_gateway" "gw" {
   }
 }
 
+// Sets up a route table to allow public access to the internet gateway
 resource "aws_route_table" "public_access" {
   vpc_id = "${aws_vpc.TF_VPC.id}"
 
@@ -37,12 +42,13 @@ resource "aws_route_table" "public_access" {
   }
 }
 
+// Creates a route table association with the subnet
 resource "aws_route_table_association" "assoc" {
   subnet_id      = "${aws_subnet.front_end.id}"
   route_table_id = "${aws_route_table.public_access.id}"
 }
 
-
+// Creates the front_end subnet for the instance to live in
 resource "aws_subnet" "front_end" {
   vpc_id     = "${aws_vpc.TF_VPC.id}"
   cidr_block = "10.2.1.0/24"
@@ -53,8 +59,7 @@ resource "aws_subnet" "front_end" {
   }
 }
 
-
-
+// Creates a security group to allow SSH traffic from two discrete IP addresses
 resource "aws_security_group" "mysg" {
     name = "mybuild_${var.platform}"
     vpc_id     = "${aws_vpc.TF_VPC.id}"
