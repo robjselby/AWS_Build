@@ -54,7 +54,7 @@ resource "aws_security_group" "mysg" {
         from_port = 22
         to_port = 22
         protocol = "tcp"
-        cidr_blocks = ["188.65.56.229/32"]
+        cidr_blocks = ["188.65.56.229/32", "143.159.116.210/32"]
     }
 
     // This is for outbound internet access
