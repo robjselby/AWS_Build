@@ -19,6 +19,14 @@ resource "aws_vpc" "TF_VPC" {
   }
 }
 
+resource "aws_internet_gateway" "gw" {
+  vpc_id = "${aws_vpc.TF_VPC.id}"
+
+  tags {
+    Name = "main"
+  }
+}
+
 resource "aws_subnet" "front_end" {
   vpc_id     = "${aws_vpc.TF_VPC.id}"
   cidr_block = "10.2.1.0/24"
