@@ -28,11 +28,11 @@ resource "aws_internet_gateway" "gw" {
   }
 }
 
-resource "aws_route_table" "r" {
+resource "aws_route_table" "public_access" {
   vpc_id = "${aws_vpc.TF_VPC.id}"
 
   route {
-    cidr_block = "10.2.1.0/24"
+    cidr_block = "0.0.0.0/0"
     gateway_id = "${aws_internet_gateway.gw.id}"
   }
 }
