@@ -5,7 +5,7 @@ resource "aws_instance" "mybuild" {
   vpc_security_group_ids = ["${aws_security_group.mysg.id}"]
   subnet_id = "${aws_subnet.front_end.id}"
   depends_on = ["aws_internet_gateway.gw"]
-  
+
   connection {
         user = "${lookup(var.user, var.platform)}"
         private_key = "${file("${var.key_path}")}"
@@ -25,6 +25,15 @@ resource "aws_internet_gateway" "gw" {
 
   tags {
     Name = "main"
+  }
+}
+
+resource "aws_route_table" "r" {
+  vpc_id = "${aws_vpc.TF_VPC.id}"
+
+  route {
+    cidr_block = "10.2.1.0/24"
+    gateway_id = "${aws_internet_gateway.gw.id}"
   }
 }
 
